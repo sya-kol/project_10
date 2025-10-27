@@ -7,9 +7,9 @@ def get_mask_account_card(name_type_number: str) -> str:
         raise ValueError("Не тот формат")
     card_info = name_type_number.rsplit(" ", 1)
     if "счет" in name_type_number.lower():
-        return f"{card_info[0]} {get_mask_account(int(card_info[1]))}"
+        return f"{card_info[0]} {get_mask_account(card_info[1])}"
     else:
-        return f"{card_info[0]} {get_mask_card_number(int(card_info[1]))}"
+        return f"{card_info[0]} {get_mask_card_number(card_info[1])}"
 
 
 def get_date(data: str) -> str:
