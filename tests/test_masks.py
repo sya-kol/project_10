@@ -20,9 +20,6 @@ def test_mask_card_number_format():
         get_mask_card_number(number_card)
 
 
-    # 73654108430135874305  # входной аргумент
-    # ** 4305  # выход функции
-
 @pytest.mark.parametrize('number_acc, expected', [(73654108430135874305, '**4305'),
                                                   ('00000000000000000000', '**0000'),
                                                   ('00000000000000009999', '**9999'),
