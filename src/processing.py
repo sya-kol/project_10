@@ -20,7 +20,7 @@ def get_sort_by_date(banking_operation: List[Dict], reverse: bool = True) -> Lis
     задающий порядок сортировки (по умолчанию — убывание),
     возвращает новый список, отсортированный по дате"""
 
-    def is_valid_date(date_str:str) -> bool:
+    def is_valid_date(date_str: str) -> bool:
         try:
             # Используем strptime для проверки корректности даты
             datetime.fromisoformat(date_str)
