@@ -7,11 +7,11 @@ def log(filename=None):
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            start_time = time.time()
             try:
+                start_time = time.time()
                 result = func(*args, **kwargs)
                 end_time = time.time()
-                log_info = f"{func.__name__} ok\nВремя начала функции: {start_time}\nРезультат: {result}\nВремя завершения функции: {end_time}"
+                log_info = f"{func.__name__} ok\nВремя начала функции: {start_time}\nРезультат: {result}\nВремя завершения функции: {end_time}\n"
                 if filename:
                     with open(filename, 'a', encoding="utf-8") as file:
                         file.write(log_info)
@@ -20,7 +20,7 @@ def log(filename=None):
                 if result:
                     return result
             except Exception as some_ex:
-                log_info = f"{func.__name__}\nВремя начала функции: {start_time}\nРезультат: Работа преждевременно завершена с ошибкой: {type(some_ex).__name__}"
+                log_info = f"{func.__name__} error: {type(some_ex).__name__}\n"
                 if filename:
                     with open(filename, "a", encoding="utf-8") as file:
                         file.write(log_info)
@@ -36,14 +36,12 @@ def my_function(x, y):
 
 
 my_function(1, 2)
-# Ожидаемый вывод в лог-файл
-# mylog.txt
-#  при успешном выполнении:
-# my_function ok
-# Ожидаемый вывод при ошибке:
-# my_function error: тип ошибки. Inputs: (1, 2), {}
-# Где
-# тип ошибки
-#  заменяется на текст ошибки.
+
+@log(filename="mylog.txt")
+def divide(x, y):
+    return x / y
+
+
+divide(10, 0)
 
 
