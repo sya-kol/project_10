@@ -1,5 +1,3 @@
-import pytest
-
 from src.decorators import log
 
 
@@ -7,6 +5,7 @@ def test_log_in_console(capsys):
     @log()
     def add_numbers(a, b):
         return a + b
+
     result = add_numbers(2, 3)
     assert result == 5
     capture = capsys.readouterr()
