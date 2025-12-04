@@ -24,4 +24,3 @@ def get_file_operation(path_file_operation: str) -> list[dict]:
 
 print(get_file_operation(path_file_operation))
 
-

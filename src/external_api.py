@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 api_key = os.getenv('API_KEY')
 transaction={
-     "id": 41428829,
+    "id": 41428829,
     "state": "EXECUTED",
     "date": "2019-07-03T18:35:29.512364",
     "operationAmount": {
@@ -40,7 +40,7 @@ def get_exchange(transaction):
         result = response.json()
         return result["result"]
     elif transaction["operationAmount"]["currency"]["code"] == "RUB":
-        return transaction["operationAmount"]["amount"]
+        return float(transaction["operationAmount"]["amount"])
     else:
         return 'Некорректная валюта'
 
