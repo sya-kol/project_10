@@ -27,7 +27,7 @@ def get_exchange(transaction):
         headers = {"apikey": api_key}
         response = requests.get(url, headers=headers)
         if response.status_code != 200:
-            raise ValueError(f"Failed to get currency rate")
+            raise ValueError("Failed to get currency rate")
         result = response.json()
         return result["result"]
     elif transaction["operationAmount"]["currency"]["code"] == "RUB":
