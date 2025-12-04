@@ -12,8 +12,10 @@ def log(filename=None):
                 start_time = time.time()
                 result = func(*args, **kwargs)
                 end_time = time.time()
-                log_info = (f"{func.__name__} ok\nВремя начала функции: {start_time}\n"
-                            f"Результат: {result}\nВремя завершения функции: {end_time}\n")
+                log_info = (
+                    f"{func.__name__} ok\nВремя начала функции: {start_time}\n"
+                    f"Результат: {result}\nВремя завершения функции: {end_time}\n"
+                )
                 if filename:
                     with open(filename, "a", encoding="utf-8") as file:
                         file.write(log_info)
