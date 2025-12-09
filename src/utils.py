@@ -1,11 +1,10 @@
 import json
-import os
 import logging
+import os
 
-
-logger = logging.getLogger('utils')
-file_handler = logging.FileHandler('logs/utils.log', mode='w')
-file_formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s: %(message)s')
+logger = logging.getLogger("utils")
+file_handler = logging.FileHandler("logs/utils.log", mode="w")
+file_formatter = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 logger.setLevel(logging.DEBUG)
