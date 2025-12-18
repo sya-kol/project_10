@@ -1,9 +1,9 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Hashable
 
 import pandas as pd
 
 
-def func_read_csv(path: str) -> List[Dict[str, Any]]:
+def func_read_csv(path: str) -> List[Dict[Hashable, Any]]:
     """Функция чтения csv-файла, выдает список словарей с транзакциями"""
     try:
         df = pd.read_csv(path)
@@ -11,9 +11,10 @@ def func_read_csv(path: str) -> List[Dict[str, Any]]:
         return result
     except FileNotFoundError:
         print("Файл не найден")
+        return []
 
 
-def func_read_excel(path: str) -> List[Dict[str, Any]]:
+def func_read_excel(path: str) -> List[Dict[Hashable, Any]]:
     """Функция чтения excel-файла, выдает список словарей с транзакциями"""
     try:
         df = pd.read_excel(path)
@@ -21,6 +22,7 @@ def func_read_excel(path: str) -> List[Dict[str, Any]]:
         return result
     except FileNotFoundError:
         print("Файл не найден")
+        return []
 
 
 # if __name__ == '__main__':
