@@ -1,0 +1,34 @@
+from typing import List, Dict, Any
+
+
+import pandas as pd
+
+
+def func_read_csv (path: str) -> List[Dict[str, Any]]:
+    """Функция чтения csv-файла, выдает список словарей с транзакциями"""
+    try:
+        df = pd.read_csv(path)
+        result = df.to_dict(orient='records')
+        return result
+    except FileNotFoundError:
+        print ('Файл не найден')
+
+
+def func_read_excel (path: str) -> List[Dict[str, Any]]:
+    """Функция чтения excel-файла, выдает список словарей с транзакциями"""
+    try:
+        df = pd.read_excel(path)
+        result = df.to_dict(orient='records')
+        return result
+    except FileNotFoundError:
+        print ('Файл не найден')
+
+
+# if __name__ == '__main__':
+#     rezult = func_read_excel('data/transactions_excel.xlsx')
+#     print(rezult)
+
+
+# if __name__ == '__main__':
+#     rezult = func_read_csv('data/transactions.csv')
+#     print(rezult)
