@@ -56,6 +56,8 @@ categories = ["Перевод организации", "Перевод с кар
 
 
 def process_bank_search(data:list[dict], search:str)->list[dict]:
+    """Функцию, которая принимает список словарей с данными о банковских операциях и строку поиска,
+    а возвращает список словарей, у которых в описании есть данная строка"""
     result = []
     for operation in data:
         if re.search(search, operation["description"]):
@@ -64,6 +66,8 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
 
 
 def process_bank_operations(data:list[dict], categories:list)->dict:
+    """Функция, которая принимает список словарей с данными о банковских операциях и список категорий операций,
+    а возвращает словарь, в котором ключи — это названия категорий, а значения — это количество операций в каждой категории"""
     result_operation = []
     for operation in data:
         if operation["description"] in categories:
@@ -74,5 +78,5 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
 
 
 if __name__ == '__main__':
-    print(process_bank_search(transactions, search))
+    # print(process_bank_search(transactions, search))
     print(process_bank_operations(transactions, categories))
