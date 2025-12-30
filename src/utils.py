@@ -37,4 +37,4 @@ def get_file_operation(path_file_operation: str) -> list[dict]:
         return []
 
 
-print(get_file_operation(path_file_operation))
+# print(get_file_operation(path_file_operation))

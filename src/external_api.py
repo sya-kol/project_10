@@ -36,4 +36,4 @@ def get_exchange(transaction):
         return "Некорректная валюта"
 
 
-print(get_exchange(transaction))
+# print(get_exchange(transaction))
