@@ -65,7 +65,7 @@ def test_process_bank_search_no_match():
 
 
 def test_process_bank_search_empty_data():
-    # Проверяем случай, когда список операций пустой.
+    # Проверяем случай, когда список операций пустой
     data = []
     search = "Перевод"
     expected = []
