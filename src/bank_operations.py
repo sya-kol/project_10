@@ -1,7 +1,6 @@
 import re
 from collections import Counter
 
-
 transactions = [
     {
         "id": 939719570,
@@ -55,7 +54,7 @@ search = "Перевод с карты на карту"
 categories = ["Перевод организации", "Перевод с карты на карту"]
 
 
-def process_bank_search(data:list[dict], search:str)->list[dict]:
+def process_bank_search(data: list[dict], search: str) -> list[dict]:
     """Функцию, которая принимает список словарей с данными о банковских операциях и строку поиска,
     а возвращает список словарей, у которых в описании есть данная строка"""
     result = []
@@ -65,9 +64,11 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
     return result
 
 
-def process_bank_operations_count(data:list[dict], categories:list)->dict:
+def process_bank_operations_count(data: list[dict], categories: list) -> dict:
     """Функция, которая принимает список словарей с данными о банковских операциях и список категорий операций,
-    а возвращает словарь, в котором ключи — это названия категорий, а значения — это количество операций в каждой категории"""
+    а возвращает словарь, в котором ключи — это названия категорий,
+    а значения — это количество операций в каждой категории
+    """
     result_operation = []
     for operation in data:
         for category in categories:
@@ -78,6 +79,6 @@ def process_bank_operations_count(data:list[dict], categories:list)->dict:
     return counted_dict
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # print(process_bank_search(transactions, search))
     print(process_bank_operations_count(transactions, categories))

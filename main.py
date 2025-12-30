@@ -1,9 +1,9 @@
-from src.utils import get_file_operation
+from src.bank_operations import process_bank_operations_count, process_bank_search
 from src.file_readers import func_read_csv, func_read_excel
-from src.processing import get_filter_by_state, get_sort_by_date
 from src.generators import filter_by_currency
-from src.bank_operations import process_bank_search, process_bank_operations_count
-from src.widget import get_mask_account_card, get_date
+from src.processing import get_filter_by_state, get_sort_by_date
+from src.utils import get_file_operation
+from src.widget import get_date, get_mask_account_card
 
 
 def main():
@@ -20,17 +20,17 @@ def main():
         print("3. Получить информацию о транзакциях из XLSX-файла")
         user_choice = input("Выберете нужный вариант: ").strip()
         if user_choice == "1":
-            file_json_path = 'data/operations.json'
+            file_json_path = "data/operations.json"
             transactions = get_file_operation(file_json_path)
             print("Для обработки выбран JSON-файл")
             break
         elif user_choice == "2":
-            file_csv_path = 'data/transactions.csv'
+            file_csv_path = "data/transactions.csv"
             transactions = func_read_csv(file_csv_path)
             print("Для обработки выбран CSV-файл")
             break
         elif user_choice == "3":
-            file_excel_path = 'data/transactions_excel.xlsx'
+            file_excel_path = "data/transactions_excel.xlsx"
             transactions = func_read_excel(file_excel_path)
             print("Для обработки выбран XLSX-файл")
             break
@@ -50,7 +50,6 @@ def main():
         else:
             print(f"Статус операции {status_user_choice} недоступен.")
             continue
-
 
     while True:
         # Блок выбора нужно ли сортировать операции по дате и если да, то по возрастанию или по убыванию
@@ -75,20 +74,18 @@ def main():
             print("Не верный формат выбора.")
             continue
 
-
     while True:
         # Блок выбора в какой валюте выводить транзакции в консоль
         print("Выводить только рублевые транзакции?")
         user_choice_currency = input("Да/Нет: ").lower().strip()
         if user_choice_currency == "да":
-            final_transactions = list(filter_by_currency(final_transactions, 'RUB'))
+            final_transactions = list(filter_by_currency(final_transactions, "RUB"))
             break
         elif user_choice_currency.lower() == "нет":
             break
         else:
             print("Не верный формат выбора.")
             continue
-
 
     while True:
         # Блок выбора по полю "description"
@@ -105,15 +102,16 @@ def main():
             print("Не верный формат выбора.")
             continue
 
-
     # Блок печати
     print("Распечатываю итоговый список транзакций...")
     print(f"{process_bank_operations_count(final_transactions, filter_word)}")
     for trans in final_transactions:
-        print(f"{get_date(trans['date'])} {trans['description']}\n"
-              f"{get_mask_account_card(trans['from'])} -> {get_mask_account_card(trans['to'])}\n"
-              f"Сумма: {trans['operationAmount']['amount']} {trans['operationAmount']['currency']['name']}")
+        print(
+            f"{get_date(trans['date'])} {trans['description']}\n"
+            f"{get_mask_account_card(trans['from'])} -> {get_mask_account_card(trans['to'])}\n"
+            f"Сумма: {trans['operationAmount']['amount']} {trans['operationAmount']['currency']['name']}"
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
