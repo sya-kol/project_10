@@ -65,13 +65,14 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
     return result
 
 
-def process_bank_operations(data:list[dict], categories:list)->dict:
+def process_bank_operations_count(data:list[dict], categories:list)->dict:
     """Функция, которая принимает список словарей с данными о банковских операциях и список категорий операций,
     а возвращает словарь, в котором ключи — это названия категорий, а значения — это количество операций в каждой категории"""
     result_operation = []
     for operation in data:
-        if operation["description"] in categories:
-            result_operation.append(operation["description"])
+        for category in categories:
+            if category in operation["description"]:
+                result_operation.append(category)
     counted = Counter(result_operation)
     counted_dict = dict(counted)
     return counted_dict
@@ -79,4 +80,4 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
 
 if __name__ == '__main__':
     # print(process_bank_search(transactions, search))
-    print(process_bank_operations(transactions, categories))
+    print(process_bank_operations_count(transactions, categories))

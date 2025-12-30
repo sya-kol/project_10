@@ -2,7 +2,7 @@ from src.utils import get_file_operation
 from src.file_readers import func_read_csv, func_read_excel
 from src.processing import get_filter_by_state, get_sort_by_date
 from src.generators import filter_by_currency
-from src.bank_operations import process_bank_search, process_bank_operations
+from src.bank_operations import process_bank_search, process_bank_operations_count
 from src.widget import get_mask_account_card, get_date
 
 
@@ -108,7 +108,7 @@ def main():
 
     # Блок печати
     print("Распечатываю итоговый список транзакций...")
-    print(f"{process_bank_operations(final_transactions, filter_word)}")
+    print(f"{process_bank_operations_count(final_transactions, filter_word)}")
     for trans in final_transactions:
         print(f"{get_date(trans['date'])} {trans['description']}\n"
               f"{get_mask_account_card(trans['from'])} -> {get_mask_account_card(trans['to'])}\n"
