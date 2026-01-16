@@ -1,9 +1,9 @@
 from src.bank_operations import process_bank_operations_count, process_bank_search
 from src.file_readers import func_read_csv, func_read_excel
 from src.generators import filter_by_currency
-from src.processing import get_filter_by_state, get_sort_by_date
+from src.processing import filter_by_state, sort_by_date
 from src.utils import get_file_operation
-from src.widget import get_date, get_mask_account_card
+from src.widget import get_date, mask_account_card
 
 
 def main():
@@ -44,7 +44,7 @@ def main():
         print("Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING")
         status_user_choice = input().upper().strip()
         if status_user_choice in ["EXECUTED", "CANCELED", "PENDING"]:
-            final_transactions = get_filter_by_state(transactions, status_user_choice)
+            final_transactions = filter_by_state(transactions, status_user_choice)
             print(f"Операции отфильтрованы по статусу {status_user_choice}")
             break
         else:
@@ -60,10 +60,10 @@ def main():
             user_choice_sort = input("возрастанию/убыванию: ").lower().strip()
             if user_choice_sort == "возрастанию":
                 user_choice_filter = False
-                final_transactions = get_sort_by_date(final_transactions, user_choice_filter)
+                final_transactions = sort_by_date(final_transactions, user_choice_filter)
                 break
             elif user_choice_sort == "убыванию":
-                final_transactions = get_sort_by_date(final_transactions)
+                final_transactions = sort_by_date(final_transactions)
                 break
             else:
                 print("Не верный формат выбора.")
@@ -108,7 +108,7 @@ def main():
     for trans in final_transactions:
         print(
             f"{get_date(trans['date'])} {trans['description']}\n"
-            f"{get_mask_account_card(trans['from'])} -> {get_mask_account_card(trans['to'])}\n"
+            f"{mask_account_card(trans['from'])} -> {mask_account_card(trans['to'])}\n"
             f"Сумма: {trans['operationAmount']['amount']} {trans['operationAmount']['currency']['name']}"
         )
 

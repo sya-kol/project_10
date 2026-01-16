@@ -12,7 +12,7 @@ from src.masks import get_mask_account, get_mask_card_number
         (8888888888888888, "8888 88** **** 8888"),
     ],
 )
-def test_mask_card_number(numbers: str, expected: str):
+def test_mask_card_number(numbers: int|str, expected: str):
     assert get_mask_card_number(numbers) == expected
 
 
@@ -35,7 +35,7 @@ def test_mask_card_number_format():
         (88888888888888888888, "**8888"),
     ],
 )
-def test_mask_account(number_acc, expected):
+def test_mask_account(number_acc: int|str, expected: str):
     assert get_mask_account(number_acc) == expected
 
 

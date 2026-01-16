@@ -1,6 +1,6 @@
 import pytest
 
-from src.widget import get_date, get_mask_account_card
+from src.widget import get_date, mask_account_card
 
 
 @pytest.mark.parametrize(
@@ -14,7 +14,7 @@ from src.widget import get_date, get_mask_account_card
     ],
 )
 def test_mask_account_card(info_numbers, expected):
-    assert get_mask_account_card(info_numbers) == expected
+    assert mask_account_card(info_numbers) == expected
 
 
 @pytest.mark.parametrize(
@@ -27,12 +27,12 @@ def test_mask_account_card(info_numbers, expected):
     ],
 )
 def test_mask_account_card_register(number_card_account, expected):
-    assert get_mask_account_card(number_card_account) == expected
+    assert mask_account_card(number_card_account) == expected
 
 
 def test_mask_account_card_empty_list():
     with pytest.raises(ValueError):
-        get_mask_account_card("")
+        mask_account_card("")
 
 
 def test_date():
