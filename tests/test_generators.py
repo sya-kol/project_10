@@ -2,7 +2,7 @@ import re
 
 import pytest
 
-from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
+from src.generators import  filter_by_currency, transaction_descriptions, card_number_generator
 
 
 @pytest.fixture
@@ -52,7 +52,18 @@ def transactions():
             "description": "Перевод организации",
             "from": "Visa Platinum 1246377376343588",
             "to": "Счет 14211924144426031657",
-        },
+        }
+    ]
+
+
+@pytest.fixture
+def transactions_missing():
+    return [
+        {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572"
+        }
     ]
 
 
@@ -99,6 +110,12 @@ def test_filter_by_currency_empty_list():
         next(generator)
 
 
+def test_filter_by_currency_missing_keys(transactions_missing):
+    generator = filter_by_currency(transactions_missing, "USD")
+    with pytest.raises(StopIteration):
+        next(generator)
+
+
 def test_transaction_descriptions(transactions):
     generator = transaction_descriptions(transactions)
     assert next(generator) == "Перевод организации"
@@ -108,6 +125,12 @@ def test_transaction_descriptions(transactions):
 
 def test_transaction_descriptions_empty():
     generator = transaction_descriptions([])
+    with pytest.raises(StopIteration):
+        next(generator)
+
+
+def test_transaction_descriptions_missing_keys(transactions_missing):
+    generator = transaction_descriptions(transactions_missing)
     with pytest.raises(StopIteration):
         next(generator)
 
