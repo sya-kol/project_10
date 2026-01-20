@@ -4,9 +4,11 @@ import pytest
 
 from src.generators import  filter_by_currency, transaction_descriptions, card_number_generator
 
+from typing import List, Tuple
+
 
 @pytest.fixture
-def transactions():
+def transactions() -> list[dict]:
     return [
         {
             "id": 939719570,
@@ -57,7 +59,7 @@ def transactions():
 
 
 @pytest.fixture
-def transactions_missing():
+def transactions_missing() -> list[dict]:
     return [
         {
             "id": 939719570,
@@ -67,7 +69,7 @@ def transactions_missing():
     ]
 
 
-def test_filter_by_currency(transactions):
+def test_filter_by_currency(transactions: list[dict]) -> None:
     generator = filter_by_currency(transactions, "USD")
     assert next(generator) == {
         "id": 939719570,
@@ -98,38 +100,38 @@ def test_filter_by_currency(transactions):
     }
 
 
-def test_filter_by_currency_empty(transactions):
+def test_filter_by_currency_empty(transactions: list[dict]) -> None:
     generator = filter_by_currency(transactions, "uero")
     with pytest.raises(StopIteration):
         next(generator)
 
 
-def test_filter_by_currency_empty_list():
+def test_filter_by_currency_empty_list() -> None:
     generator = filter_by_currency([], "")
     with pytest.raises(StopIteration):
         next(generator)
 
 
-def test_filter_by_currency_missing_keys(transactions_missing):
+def test_filter_by_currency_missing_keys(transactions_missing: list[dict]) -> None:
     generator = filter_by_currency(transactions_missing, "USD")
     with pytest.raises(StopIteration):
         next(generator)
 
 
-def test_transaction_descriptions(transactions):
+def test_transaction_descriptions(transactions: list[dict]) -> None:
     generator = transaction_descriptions(transactions)
     assert next(generator) == "Перевод организации"
     assert next(generator) == "Перевод со счета на счет"
     assert next(generator) == "Перевод со счета на счет"
 
 
-def test_transaction_descriptions_empty():
+def test_transaction_descriptions_empty() -> None:
     generator = transaction_descriptions([])
     with pytest.raises(StopIteration):
         next(generator)
 
 
-def test_transaction_descriptions_missing_keys(transactions_missing):
+def test_transaction_descriptions_missing_keys(transactions_missing: list[dict]) -> None:
     generator = transaction_descriptions(transactions_missing)
     with pytest.raises(StopIteration):
         next(generator)
@@ -142,25 +144,25 @@ def test_transaction_descriptions_missing_keys(transactions_missing):
         (5, 5, ["0000 0000 0000 0005"]),
     ],
 )
-def test_card_number_generator(start, stop, expected):
+def test_card_number_generator(start: int, stop: int, expected: List[str]) -> None:
     generator = card_number_generator(start, stop)
     for exp in expected:
         assert next(generator) == exp
 
 
-def test_card_number_generator_error_1():
+def test_card_number_generator_error_1() -> None:
     generator = card_number_generator(4, 1)
     with pytest.raises(ValueError):
         next(generator)
 
 
-def test_card_number_generator_error_2():
+def test_card_number_generator_error_2() -> None:
     generator = card_number_generator(0, 1)
     with pytest.raises(ValueError):
         next(generator)
 
 
-def test_card_number_generator_error_3():
+def test_card_number_generator_error_3() -> None:
     generator = card_number_generator(1, 99999999999999998)
     with pytest.raises(ValueError):
         next(generator)
@@ -170,10 +172,10 @@ def test_card_number_generator_error_3():
     "start, end",
     [
         (1, 4),
-        (1234, 1237),
-    ],
+        (1234, 1237)
+    ]
 )
-def test_card_number_format(start, end):
+def test_card_number_format(start: int, end: int) -> None:
     generator = card_number_generator(start, end)
     card_number_pattern = re.compile(r"^\d{4} \d{4} \d{4} \d{4}$")
     for card_number in generator:
