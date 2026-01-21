@@ -1,13 +1,14 @@
 import functools
 import time
+from typing import Callable, Any, Optional
 
 
-def log(filename=None):
+def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """Декоратор для логирования"""
 
-    def decorator(func):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 start_time = time.time()
                 result = func(*args, **kwargs)
@@ -37,7 +38,7 @@ def log(filename=None):
 
 
 @log(filename="mylog.txt")
-def my_function(x, y):
+def my_function(x: int|float, y: int|float) -> int|float:
     return x + y
 
 
@@ -45,7 +46,7 @@ my_function(1, 2)
 
 
 @log(filename="mylog.txt")
-def divide(x, y):
+def divide(x: int|float, y: int|float) -> int|float:
     return x / y
 
 

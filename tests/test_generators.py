@@ -4,7 +4,7 @@ import pytest
 
 from src.generators import  filter_by_currency, transaction_descriptions, card_number_generator
 
-from typing import List, Tuple
+from typing import List
 
 
 @pytest.fixture
