@@ -13,7 +13,7 @@ from src.widget import get_date, mask_account_card
         ("Visa Gold 5999414228426353", "Visa Gold 5999 41** **** 6353"),
     ],
 )
-def test_mask_account_card(info_numbers, expected):
+def test_mask_account_card(info_numbers: str, expected: str) -> None:
     assert mask_account_card(info_numbers) == expected
 
 
@@ -26,20 +26,20 @@ def test_mask_account_card(info_numbers, expected):
         ("Банковский счет 35383033474447895560", "Банковский счет **5560"),
     ],
 )
-def test_mask_account_card_register(number_card_account, expected):
+def test_mask_account_card_register(number_card_account: str, expected: str) -> None:
     assert mask_account_card(number_card_account) == expected
 
 
-def test_mask_account_card_empty_list():
+def test_mask_account_card_empty_list() -> None:
     with pytest.raises(ValueError):
         mask_account_card("")
 
 
-def test_date():
+def test_date() -> None:
     assert get_date("2024-03-11T02:26:18.671407") == "11.03.2024"
 
 
-def test_date_card_empty_list():
+def test_date_card_empty_list() -> None:
     with pytest.raises(ValueError):
         get_date("")
 
@@ -47,5 +47,5 @@ def test_date_card_empty_list():
 @pytest.mark.parametrize(
     "data_info, expected", [("2024-03-11T02:26:18.671407", "11.03.2024"), ("2024-03-11T02:26:18", "11.03.2024")]
 )
-def test_mask_account_card_format(data_info, expected):
+def test_mask_account_card_format(data_info: str, expected: str) -> None:
     assert get_date(data_info) == expected

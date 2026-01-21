@@ -29,7 +29,7 @@ def get_mask_account(number_account: int|str) -> str:
     logger.info("Начало работы функции get_mask_account")
     number_account_str = str(number_account)
     if len(number_account_str) != 20 or not number_account_str.isdigit():
-        # logger.error("Не тот формат номера счета")
+        logger.error("Не тот формат номера счета")
         raise ValueError("Не тот формат номера счета")
     number_account_mask = "**" + number_account_str[-4:]
     logger.info(f"Окончание работы функции с возратом маски счета: {number_account_mask}")
