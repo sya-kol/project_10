@@ -1,6 +1,6 @@
 import functools
 import time
-from typing import Callable, Any, Optional
+from typing import Any, Callable, Optional
 
 
 def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
@@ -38,7 +38,7 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callab
 
 
 @log(filename="mylog.txt")
-def my_function(x: int|float, y: int|float) -> int|float:
+def my_function(x: int | float, y: int | float) -> int | float:
     return x + y
 
 
@@ -46,7 +46,7 @@ my_function(1, 2)
 
 
 @log(filename="mylog.txt")
-def divide(x: int|float, y: int|float) -> int|float:
+def divide(x: int | float, y: int | float) -> int | float:
     return x / y
 
 

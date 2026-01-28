@@ -110,8 +110,8 @@ def main():
         print(f"{process_bank_operations_count(final_transactions, filter_word)}")
     # print(f"{process_bank_operations_count(final_transactions, filter_word)}")
     for trans in final_transactions:
-        from_account = trans.get('from', '')
-        if from_account != '':
+        from_account = trans.get("from", "")
+        if from_account != "":
             print(
                 f"{get_date(trans['date'])} {trans['description']}\n"
                 f"{mask_account_card(trans['from'])} -> {mask_account_card(trans['to'])}\n"
@@ -123,6 +123,7 @@ def main():
                 f"{mask_account_card(trans['to'])}\n"
                 f"Сумма: {trans['operationAmount']['amount']} {trans['operationAmount']['currency']['name']}"
             )
+
 
 if __name__ == "__main__":
     main()

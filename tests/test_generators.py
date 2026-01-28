@@ -1,10 +1,9 @@
 import re
+from typing import List
 
 import pytest
 
-from src.generators import  filter_by_currency, transaction_descriptions, card_number_generator
-
-from typing import List
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 @pytest.fixture
@@ -54,19 +53,13 @@ def transactions() -> list[dict]:
             "description": "Перевод организации",
             "from": "Visa Platinum 1246377376343588",
             "to": "Счет 14211924144426031657",
-        }
+        },
     ]
 
 
 @pytest.fixture
 def transactions_missing() -> list[dict]:
-    return [
-        {
-            "id": 939719570,
-            "state": "EXECUTED",
-            "date": "2018-06-30T02:08:58.425572"
-        }
-    ]
+    return [{"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"}]
 
 
 def test_filter_by_currency(transactions: list[dict]) -> None:
@@ -168,13 +161,7 @@ def test_card_number_generator_error_3() -> None:
         next(generator)
 
 
-@pytest.mark.parametrize(
-    "start, end",
-    [
-        (1, 4),
-        (1234, 1237)
-    ]
-)
+@pytest.mark.parametrize("start, end", [(1, 4), (1234, 1237)])
 def test_card_number_format(start: int, end: int) -> None:
     generator = card_number_generator(start, end)
     card_number_pattern = re.compile(r"^\d{4} \d{4} \d{4} \d{4}$")

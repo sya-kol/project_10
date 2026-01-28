@@ -1,8 +1,8 @@
+from typing import List, Union
+
 import pytest
 
 from src.masks import get_mask_account, get_mask_card_number
-
-from typing import List, Union
 
 
 @pytest.mark.parametrize(
@@ -14,7 +14,7 @@ from typing import List, Union
         (8888888888888888, "8888 88** **** 8888"),
     ],
 )
-def test_mask_card_number(numbers: int|str, expected: str) -> None:
+def test_mask_card_number(numbers: int | str, expected: str) -> None:
     assert get_mask_card_number(numbers) == expected
 
 
@@ -38,7 +38,7 @@ def test_mask_card_number_format(number_card: List[Union[int, str]]) -> None:
         (88888888888888888888, "**8888"),
     ],
 )
-def test_mask_account(number_acc: int|str, expected: str) -> None:
+def test_mask_account(number_acc: int | str, expected: str) -> None:
     assert get_mask_account(number_acc) == expected
 
 

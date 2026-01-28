@@ -1,6 +1,5 @@
 from typing import Iterator
 
-
 transactions = [
     {
         "id": 939719570,

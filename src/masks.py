@@ -8,7 +8,7 @@ logger.addHandler(file_handler)
 logger.setLevel(logging.DEBUG)
 
 
-def get_mask_card_number(number_cart: int|str) -> str:
+def get_mask_card_number(number_cart: int | str) -> str:
     """Функция принимает номер карты в виде числа и
     возвращает маску номера XXXX XX** **** XXXX"""
     logger.info("Начало работы функции get_mask_card_number")
@@ -23,7 +23,7 @@ def get_mask_card_number(number_cart: int|str) -> str:
     return number_cart_mask
 
 
-def get_mask_account(number_account: int|str) -> str:
+def get_mask_account(number_account: int | str) -> str:
     """Функция принимает номер счета в виде числа и
     возвращает маску номера **XXXX"""
     logger.info("Начало работы функции get_mask_account")

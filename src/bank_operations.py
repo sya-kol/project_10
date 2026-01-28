@@ -80,5 +80,5 @@ def process_bank_operations_count(data: list[dict], categories: list) -> dict:
 
 
 # if __name__ == "__main__":
-    # print(process_bank_search(transactions, search))
-    # print(process_bank_operations_count(transactions, categories))
+# print(process_bank_search(transactions, search))
+# print(process_bank_operations_count(transactions, categories))
