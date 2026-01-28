@@ -1,6 +1,5 @@
 import pytest
 
-
 from src.bank_operations import process_bank_operations_count, process_bank_search
 
 

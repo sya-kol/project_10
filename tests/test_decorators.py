@@ -1,9 +1,11 @@
+from typing import Any
+
 from src.decorators import log
 
 
-def test_log_in_console(capsys):
+def test_log_in_console(capsys: Any) -> None:
     @log()
-    def add_numbers(a, b):
+    def add_numbers(a: int | float, b: int | float) -> int | float:
         return a + b
 
     result = add_numbers(2, 3)
@@ -13,9 +15,9 @@ def test_log_in_console(capsys):
     assert "Результат: 5" in capture.out
 
 
-def test_log_exception(capsys):
+def test_log_exception(capsys: Any) -> None:
     @log()
-    def divide(x, y):
+    def divide(x: int | float, y: int | float) -> int | float:
         return x / y
 
     divide(10, 0)

@@ -1,3 +1,5 @@
+from typing import List, Union
+
 import pytest
 
 from src.masks import get_mask_account, get_mask_card_number
@@ -12,18 +14,19 @@ from src.masks import get_mask_account, get_mask_card_number
         (8888888888888888, "8888 88** **** 8888"),
     ],
 )
-def test_mask_card_number(numbers: str, expected: str):
+def test_mask_card_number(numbers: int | str, expected: str) -> None:
     assert get_mask_card_number(numbers) == expected
 
 
 @pytest.fixture
-def number_card():
+def number_card() -> List[Union[int, str]]:
     return [70007922896063611, 700079228960636, "", "eeeeeeeeeeeeeeee", "1212ffffffffffff"]
 
 
-def test_mask_card_number_format():
-    with pytest.raises(ValueError):
-        get_mask_card_number(number_card)
+def test_mask_card_number_format(number_card: List[Union[int, str]]) -> None:
+    for card in number_card:
+        with pytest.raises(ValueError):
+            get_mask_card_number(card)
 
 
 @pytest.mark.parametrize(
@@ -35,15 +38,16 @@ def test_mask_card_number_format():
         (88888888888888888888, "**8888"),
     ],
 )
-def test_mask_account(number_acc, expected):
+def test_mask_account(number_acc: int | str, expected: str) -> None:
     assert get_mask_account(number_acc) == expected
 
 
 @pytest.fixture
-def number_account():
+def number_account() -> List[Union[int, str]]:
     return [700079220000896063611, 700079228960636, "", "eeeeeeeeeeeeeeeeeeee", "11111111112131dgdfhd"]
 
 
-def test_mask_account_format():
-    with pytest.raises(ValueError):
-        get_mask_account(number_account)
+def test_mask_account_format(number_account: List[Union[int, str]]) -> None:
+    for account in number_account:
+        with pytest.raises(ValueError):
+            get_mask_account(account)

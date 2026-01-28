@@ -79,6 +79,6 @@ def process_bank_operations_count(data: list[dict], categories: list) -> dict:
     return counted_dict
 
 
-if __name__ == "__main__":
-    # print(process_bank_search(transactions, search))
-    print(process_bank_operations_count(transactions, categories))
+# if __name__ == "__main__":
+# print(process_bank_search(transactions, search))
+# print(process_bank_operations_count(transactions, categories))

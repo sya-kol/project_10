@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Dict, List
 
 
-def get_filter_by_state(banking_operation: List[Dict], state: str = "EXECUTED") -> List[Dict]:
+def filter_by_state(banking_operation: List[Dict], state: str = "EXECUTED") -> List[Dict]:
     """Функция принимает список словарей и значение для ключа state и
     возвращает новый список словарей, содержащий только те словари,
     у которых ключ state соответствует указанному значению"""
@@ -15,7 +15,7 @@ def get_filter_by_state(banking_operation: List[Dict], state: str = "EXECUTED") 
     return filtered_operations
 
 
-def get_sort_by_date(banking_operation: List[Dict], reverse: bool = True) -> List[Dict]:
+def sort_by_date(banking_operation: List[Dict], reverse: bool = True) -> List[Dict]:
     """Функция принимает список словарей и параметр,
     задающий порядок сортировки (по умолчанию — убывание),
     возвращает новый список, отсортированный по дате"""

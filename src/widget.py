@@ -1,7 +1,7 @@
 from .masks import get_mask_account, get_mask_card_number
 
 
-def get_mask_account_card(name_type_number: str) -> str:
+def mask_account_card(name_type_number: str) -> str:
     """Функция, которая умеет обрабатывать информацию о картах и о счетах"""
     if len(name_type_number) == 0:
         raise ValueError("Не тот формат")

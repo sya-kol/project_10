@@ -1,10 +1,12 @@
+from typing import Dict, List
+
 import pytest
 
-from src.processing import get_filter_by_state, get_sort_by_date
+from src.processing import filter_by_state, sort_by_date
 
 
 @pytest.fixture
-def list_of_dict():
+def list_of_dict() -> List[Dict]:
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
@@ -14,7 +16,7 @@ def list_of_dict():
 
 
 @pytest.fixture
-def list_of_dict_date():
+def list_of_dict_date() -> List[Dict]:
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-09-30T02:08:58.425572"},
@@ -24,7 +26,7 @@ def list_of_dict_date():
 
 
 @pytest.fixture
-def list_of_dict_date_not_correct():
+def list_of_dict_date_not_correct() -> List[Dict]:
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-13-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-09-30T02:08:58.425572"},
@@ -33,37 +35,37 @@ def list_of_dict_date_not_correct():
     ]
 
 
-def test_filter_by_state(list_of_dict):
-    assert get_filter_by_state(list_of_dict) == [
+def test_filter_by_state(list_of_dict: List[Dict]) -> None:
+    assert filter_by_state(list_of_dict) == [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
     ]
 
 
-def test_filter_by_state_CANCELED(list_of_dict):
-    assert get_filter_by_state(list_of_dict, "CANCELED") == [
+def test_filter_by_state_CANCELED(list_of_dict: List[Dict]) -> None:
+    assert filter_by_state(list_of_dict, "CANCELED") == [
         {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
     ]
 
 
-def test_filter_by_state_no_state():
+def test_filter_by_state_no_state() -> None:
     with pytest.raises(ValueError):
-        get_filter_by_state([{"id": 41428829, "state": "", "date": "2019-07-03T18:35:29.512364"}])
+        filter_by_state([{"id": 41428829, "state": "", "date": "2019-07-03T18:35:29.512364"}])
 
 
 @pytest.mark.parametrize("state", ["CANCELED", "EXECUTED"])
-def test_filter_by_state_different_state(list_of_dict, state):
-    assert get_filter_by_state(list_of_dict, state)
+def test_filter_by_state_different_state(list_of_dict: List[Dict], state: str) -> None:
+    assert filter_by_state(list_of_dict, state)
 
 
-def test_filter_by_state_another_state(list_of_dict):
+def test_filter_by_state_another_state(list_of_dict: List[Dict]) -> None:
     with pytest.raises(ValueError):
-        get_filter_by_state(list_of_dict, "NCELED")
+        filter_by_state(list_of_dict, "NCELED")
 
 
-def test_sort_by_date(list_of_dict):
-    assert get_sort_by_date(list_of_dict) == [
+def test_sort_by_date(list_of_dict: List[Dict]) -> None:
+    assert sort_by_date(list_of_dict) == [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
         {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
@@ -71,8 +73,8 @@ def test_sort_by_date(list_of_dict):
     ]
 
 
-def test_sort_by_date_increase(list_of_dict):
-    assert get_sort_by_date(list_of_dict, False) == [
+def test_sort_by_date_increase(list_of_dict: List[Dict]) -> None:
+    assert sort_by_date(list_of_dict, False) == [
         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
         {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
@@ -80,8 +82,8 @@ def test_sort_by_date_increase(list_of_dict):
     ]
 
 
-def test_sort_by_date_identical(list_of_dict_date):
-    assert get_sort_by_date(list_of_dict_date, False) == [
+def test_sort_by_date_identical(list_of_dict_date: List[Dict]) -> None:
+    assert sort_by_date(list_of_dict_date, False) == [
         {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
         {"id": 939719570, "state": "EXECUTED", "date": "2018-09-30T02:08:58.425572"},
         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
@@ -89,6 +91,6 @@ def test_sort_by_date_identical(list_of_dict_date):
     ]
 
 
-def test_sort_by_date_not_correct(list_of_dict_date_not_correct):
+def test_sort_by_date_not_correct(list_of_dict_date_not_correct: List[Dict]) -> None:
     with pytest.raises(ValueError):
-        get_sort_by_date(list_of_dict_date_not_correct)
+        sort_by_date(list_of_dict_date_not_correct)
