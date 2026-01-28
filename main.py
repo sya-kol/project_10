@@ -87,6 +87,8 @@ def main():
             print("Не верный формат выбора.")
             continue
 
+    filter_word = None
+
     while True:
         # Блок выбора по полю "description"
         print("Отфильтровать список транзакций по определенному слову в описании?")
@@ -104,14 +106,23 @@ def main():
 
     # Блок печати
     print("Распечатываю итоговый список транзакций...")
-    print(f"{process_bank_operations_count(final_transactions, filter_word)}")
+    if filter_word is not None:
+        print(f"{process_bank_operations_count(final_transactions, filter_word)}")
+    # print(f"{process_bank_operations_count(final_transactions, filter_word)}")
     for trans in final_transactions:
-        print(
-            f"{get_date(trans['date'])} {trans['description']}\n"
-            f"{mask_account_card(trans['from'])} -> {mask_account_card(trans['to'])}\n"
-            f"Сумма: {trans['operationAmount']['amount']} {trans['operationAmount']['currency']['name']}"
-        )
-
+        from_account = trans.get('from', '')
+        if from_account != '':
+            print(
+                f"{get_date(trans['date'])} {trans['description']}\n"
+                f"{mask_account_card(trans['from'])} -> {mask_account_card(trans['to'])}\n"
+                f"Сумма: {trans['operationAmount']['amount']} {trans['operationAmount']['currency']['name']}"
+            )
+        else:
+            print(
+                f"{get_date(trans['date'])} {trans['description']}\n"
+                f"{mask_account_card(trans['to'])}\n"
+                f"Сумма: {trans['operationAmount']['amount']} {trans['operationAmount']['currency']['name']}"
+            )
 
 if __name__ == "__main__":
     main()
