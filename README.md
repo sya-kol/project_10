@@ -37,7 +37,7 @@
 
 1. Клонируйте репозиторий:
 ```
-git clone https://github.com/sya-kol/project_10.git
+git clone https://github.com/sya-kol/project_10/tree/feature/homework_10_1
 ```
 2. Перейдите в папку проекта:
 ```
